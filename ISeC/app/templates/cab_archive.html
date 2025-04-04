@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Администрация. ИКС-файл</title>
+	<script type="text/javascript"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style_adminCab.css') }}">
+	<link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+</head>
+
+<body>
+
+	<header class="header">
+		<div class="header_ISeC">ИКС-файл. Администраторная</div>
+		<div class="header_admin">
+			<span>
+				Привет, <a href="{{ url_for('index') }}">{{ session['admin_data']['adminName'] }}</a> |
+				<a href="{{ url_for('index') }}">Тест</a> |
+				<a href="{{ url_for('cab_logout') }}">Выйти</a>
+			</span>
+		</div>
+	</header>
+
+	<main class="main">
+
+		<div class="side_menu">
+			<button class="btn_sidelink_actual" id="btn_cab_archive">
+				Архив
+			</button>
+
+			<button class="btn_sidelink" id="btn_cab_codes">
+				Коды доступа
+			</button>
+
+			<button class="btn_sidelink" id="btn_cab_analysis">
+				Анализ по вопросам
+			</button>
+
+			<button class="btn_sidelink" id="btn_cab_excelgen">
+				Выборки (excel)
+			</button>
+
+			<button class="btn_sidelink" id="btn_cab_admins">
+				Администраторы
+			</button>
+		</div>
+
+		{% if session.admin_data.archiveAccess == 'true' %}
+		<div class="central_archive">
+
+			<input type="text" class="inp_text" id="respondent_id" required placeholder="ID респондента"
+				autocomplete="off">
+
+			<input type="email" class="inp_text" id="email_to_send" required placeholder="Эл. почта" autocomplete="off">
+
+			<button id="gener_and_send_PDF" class="btn_startgen" type="button" onclick="generAndSendPDF()">Запустить
+				генерацию</button>
+		</div>
+		{% else %}
+		<span class="access_blocked">У Вас нет доступа к этой странице</span>
+		{% endif %}
+
+		<script src="{{ url_for('static', filename='js/functions_adminCab.js') }}"></script>
+		<script>
+
+			document.addEventListener('DOMContentLoaded', function () {
+
+				document.getElementById('btn_cab_archive').addEventListener('click', function () {
+					window.location.href = '/cab_archive';
+				});
+
+				document.getElementById('btn_cab_codes').addEventListener('click', function () {
+					window.location.href = '/cab_codes';
+				});
+
+				document.getElementById('btn_cab_analysis').addEventListener('click', function () {
+					window.location.href = '/cab_analysis';
+				});
+
+				document.getElementById('btn_cab_excelgen').addEventListener('click', function () {
+					window.location.href = '/cab_excelgen';
+				});
+
+				document.getElementById('btn_cab_admins').addEventListener('click', function () {
+					window.location.href = '/cab_admins';
+				});
+
+			});
+
+		</script>
+
+	</main>
+
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Администрация. ИКС-файл</title>
+	<script type="text/javascript"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style_adminCab.css') }}">
+	<link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+</head>
+
+<body class="login_body">
+	<div class="auth_window">
+		<form id="loginForm" action="{{ url_for('cab_login') }}" method="post" novalidate>
+			<div class="input-group">
+				<label class="login_label" for="adminLogin">Логин</label>
+				<input type="text" class="login_input" id="adminLogin" name="adminLogin" placeholder="">
+			</div>
+			<div class="input-group">
+				<label class="login_label" for="adminAccess">Пароль</label>
+				<input type="password" class="login_input" id="adminAccess" name="adminAccess" placeholder=""
+					autocomplete="off">
+			</div>
+			<button class="enter_btn" type="submit">Войти</button>
+		</form>
+	</div>
+
+	<script src="{{ url_for('static', filename='js/functions_adminCab.js') }}"></script>
+	<script>
+
+		document.addEventListener('DOMContentLoaded', function () {
+
+			document.getElementById('loginForm').addEventListener('submit', function (event) {
+
+				event.preventDefault(); // Предотвращаем стандартное поведение формы
+
+				// Сбрасываем плейсхолдеры
+				document.getElementById('adminLogin').placeholder = '';
+				document.getElementById('adminAccess').placeholder = '';
+
+				let valid = true;
+
+				// Проверка логина
+				const adminLogin = document.getElementById('adminLogin').value;
+				if (!adminLogin) {
+					document.getElementById('adminLogin').placeholder = 'Пожалуйста, заполните логин.';
+					valid = false;
+				}
+
+				// Проверка пароля
+				const adminAccess = document.getElementById('adminAccess').value;
+				if (!adminAccess) {
+					document.getElementById('adminAccess').placeholder = 'Пожалуйста, заполните пароль.';
+					valid = false;
+				}
+
+				// Если форма валидна, отправляем данные на сервер
+				if (valid) {
+					const formData = new FormData(this);
+					fetch(this.action, {
+						method: 'POST',
+						body: formData
+					})
+						.then(response => response.text())
+						.then(data => {
+							if (data === "userNotFound") {
+								alert("Такой пользователь не найден");
+							} else if (data === "passwordIsWrong") {
+								alert("Введённый пароль неверен");
+							} else if (data === "sucsess") {
+								window.location.href = "/cab_archive";
+							}
+						})
+						.catch(error => {
+							console.error('Ошибка:', error);
+						});
+				}
+			});
+			
+		});
+
+	</script>
+
+</body>
+
+</html>

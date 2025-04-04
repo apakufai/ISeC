@@ -1,0 +1,575 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+
+/* ------------------------------------------------ */
+/* ------------- СТРАНИЦА АВТОРИЗАЦИИ ------------- */
+/* ------------------------------------------------ */
+
+.login_body {
+   font-family: Arial, sans-serif;
+   background-color: #f4f4f4;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+}
+
+.auth_window {
+   background-color: #ffffff;
+   padding: 20px;
+   border-radius: 5px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+   width: 300px;
+}
+
+.input-group {
+   margin-bottom: 15px;
+}
+
+.login_label {
+   display: block;
+   margin-bottom: 5px;
+}
+
+.login_input[type="text"],
+.login_input[type="password"] {
+   width: 100%;
+   padding: 10px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+}
+
+.enter_btn {
+   width: 100%;
+   padding: 10px;
+   background-color: #6c7375;
+   color: white;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+}
+
+.enter_btn:hover {
+   background-color: #5b7ead;
+}
+
+.inplogin_inputut::placeholder {
+   color: #c64053;
+}
+
+
+/* ------------------------------------------------ */
+/* ----------------- ОБЩИЙ ШАБЛОН ----------------- */
+/* ------------------------------------------------ */
+
+body {
+   font-family: Arial, sans-serif;
+   background-color: #ffffff;
+}
+
+.header {
+   width: 100%;
+   height: 50px;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 0 10px;
+   color: #ffffff;
+   background-color: #142440;
+}
+
+.header_ISeC {
+   padding-left: 10px;
+}
+
+.header_admin {
+   text-align: right;
+   padding-right: 10px;
+}
+
+/* Гиперссылки */
+a {
+   text-decoration: none;
+   color: inherit;
+   background-color: transparent;
+}
+
+a:hover {
+   color: inherit;
+   background-color: transparent;
+}
+
+.main {
+   display: flex;
+   flex-direction: row;
+}
+
+.side_menu {
+   padding-top: 15px;
+   display: flex;
+   flex-direction: column;
+   width: 250px;
+   background-color: #d3d7d8;
+   height: 220px;
+   gap: 15px;
+   border-bottom-right-radius: 30px;
+}
+
+.btn_sidelink {
+   color: #ffffff;
+   background-color: #5b7ead;
+   text-align: left;
+   font-size: 14px;
+   margin: 0 15px;
+   padding: 5px 0 5px 10px;
+   border-radius: 10px;
+   border: none;
+   cursor: pointer;
+}
+
+.btn_sidelink:hover {
+   background-color: #a6afb1;
+}
+
+.btn_sidelink_actual {
+   color: #ffffff;
+   background-color: #855555;
+   text-align: left;
+   font-size: 14px;
+   margin: 0 15px;
+   padding: 5px 0 5px 10px;
+   border-radius: 10px;
+   border: none;
+   cursor: pointer;
+}
+
+.btn_sidelink_actual:hover {
+   background-color: #a6afb1;
+}
+
+.inp_text {
+   display: flex;
+   border: 5px solid #d3d7d8;
+   border-radius: 15px;
+   background-color: rgba(255, 255, 255, 0);
+   font-size: 16pt;
+   font-weight: lighter;
+   color: #5b7ead;
+   animation: animBlocks_text 1s ease;
+   animation-duration: 1s;
+   height: 50px;
+   width: 500px;
+   padding-left: 10px;
+   outline: none;
+}
+
+.inp_text::placeholder {
+   color: #7F7F7F;
+   font-weight: lighter;
+}
+
+.inp_date {
+   display: flex;
+   border: 5px solid #ffffff;
+   border-radius: 15px;
+   background-color: rgba(255, 255, 255, 0.85);
+   font-size: 16pt;
+   color: #5b7ead;
+   animation: animButtons_main 1s ease;
+   animation-duration: 1s;
+   height: 50px;
+   width: 220px;
+   padding: 10px;
+}
+
+.access_blocked {
+   margin: 100px;
+   font-size: 30px;
+}
+
+/* ------------------------------------------------ */
+/* ----------- ГЛАВНАЯ СТРАНИЦА (АРХИВ) ----------- */
+/* ------------------------------------------------ */
+
+.central_archive {
+   flex-grow: 1;
+   display: flex;
+   flex-direction: column;
+   margin-top: 100px;
+   margin-left: 150px;
+   gap: 30px;
+}
+
+.btn_startgen {
+   display: flex;
+   border: 5px solid #acbdd6;
+   border-radius: 30px;
+   background-color: rgba(172, 189, 214, 0);
+   font-size: 16pt;
+   color: #7F7F7F;
+   justify-content: center;
+   align-items: center;
+   height: 60px;
+   width: 300px;
+   outline: none;
+   cursor: pointer;
+}
+
+.btn_startgen:hover {
+   border: 5px solid #5b7ead;
+   color: #5b7ead;
+}
+
+.btn_startgen:active {
+   background-color: rgba(172, 189, 214, 0.5);
+}
+
+
+
+/* ------------------------------------------------ */
+/* ------------ СТРАНИЦА КОДОВ ДОСТУПА ------------ */
+/* ------------------------------------------------ */
+
+.entrycode_head,
+.entrycode_block_create {
+   border-bottom: 2px solid #5b7ead;
+}
+
+.entrycode_block_create td {
+   padding: 10px 5px;
+}
+
+
+.entrycode_head * {
+   padding-bottom: 5px;
+}
+
+.entrycode_block td {
+   padding-top: 10px;
+   /* Добавляет отступ сверху ячеек */
+}
+
+.central_codes * {
+   border-collapse: collapse;
+   /* Убирает двойные границы */
+   font-size: 14pt;
+}
+
+.central_codes table {
+   margin: 20px 0 0 20px;
+}
+
+.entrycode_head_th_0 {
+   width: 120px;
+}
+
+.entrycode_block_td_0 {
+   padding: 0 5px;
+   text-align: center;
+}
+
+.entrycode_head_th_1,
+.entrycode_block_td_1 input {
+   width: 180px;
+}
+
+.entrycode_block_td_1 {
+   padding: 0 5px;
+}
+
+.entrycode_head_th_2,
+.entrycode_block_td_2 input {
+   width: 180px;
+}
+
+.entrycode_block_td_2 {
+   padding: 0 5px;
+}
+
+.entrycode_head_th_3,
+.entrycode_block_td_3 input {
+   width: 150px;
+}
+
+.entrycode_block_td_3 {
+   padding: 0 5px;
+}
+
+.entrycode_head_th_4,
+.entrycode_block_td_4 input {
+   width: 150px;
+}
+
+.entrycode_block_td_4 {
+   padding: 0 5px;
+}
+
+.entrycode_block_td_5 {
+   text-align: center;
+   padding: 0 5px;
+   width: 180px;
+}
+
+.entrycode_block_td_5 button {
+   width: 120px;
+}
+
+
+
+/* ------------------------------------------------ */
+/* -------------- СТРАНИЦА АНАЛИТИКИ -------------- */
+/* ------------------------------------------------ */
+
+.progress-container {
+   width: 100%;
+   /* Ширина контейнера */
+   background-color: #d3d7d8;
+   /* Цвет незаполненной части (подложка) */
+   border-radius: 5px;
+   /* Закругление углов */
+   overflow: hidden;
+   /* Скрыть переполнение */
+}
+
+.progress-filled {
+   height: 20px;
+   /* Высота графика */
+   background-color: #acbdd6;
+   /* Цвет заполненной части */
+}
+
+.respondences_count {
+   margin: 30px 80px;
+   font-size: 26px;
+   /* Устанавливаем размер шрифта в 30 пунктов */
+}
+
+.analysis_head * {
+   padding-bottom: 5px;
+}
+
+.analysis_head,
+.central_analysis table tbody .table_underline {
+   border-bottom: 2px solid #5b7ead;
+}
+
+.table_spacing {
+   margin-top: 15px;
+   /* Отступ сверху */
+}
+
+
+.central_analysis table tbody tr td {
+   padding: 5px;
+   /* Отступ внутри ячеек */
+}
+
+
+.central_analysis * {
+   border-collapse: collapse;
+}
+
+.table_analysis {
+   margin: 20px 0 0 20px;
+   font-size: 14pt;
+}
+
+.central_analysis table th,
+.central_analysis table td {
+   text-align: center;
+}
+
+.analysis_head_th_0 {
+   width: 100px;
+}
+
+
+.analysis_head_th_1 {
+   width: 70px;
+}
+
+.analysis_head_th_2 {
+   width: 70px;
+}
+
+.analysis_head_th_3 {
+   width: 80px;
+}
+
+.analysis_head_th_4 {
+   width: 250px;
+}
+
+
+
+/* ------------------------------------------------ */
+/* ----------- СТРАНИЦА EXCEL-ГЕНЕРАЦИИ ----------- */
+/* ------------------------------------------------ */
+
+.central_excelgen * {
+   border-collapse: collapse;
+   /* Убирает двойные границы */
+   font-size: 14pt;
+}
+
+.central_excelgen table {
+   margin: 20px 0 0 20px;
+}
+
+.conditions_block_td_3 * {
+   width: 70px;
+   margin-top: 7px;
+   text-align: center;
+}
+
+.conditions_block_td_4 * {
+   margin-top: 14px;
+}
+
+.conditions_block {
+   vertical-align: top;
+}
+
+.conditions_head {
+   border-bottom: 2px solid #5b7ead;
+}
+
+.conditions_head * {
+   padding-bottom: 5px;
+}
+
+.conditions_head th,
+.conditions_block_td_0,
+.conditions_block_td_1,
+.conditions_block_td_2,
+.conditions_block_td_3 {
+   padding-right: 30px;
+}
+
+.conditions_block_td_0 *,
+.conditions_block_td_1 *,
+.conditions_block_td_2 * {
+   margin-top: 10px;
+}
+
+.hidden_groups {
+   display: none;
+}
+
+.hidden-button {
+   display: none;
+}
+
+
+/* ------------------------------------------------ */
+/* ----------- СТРАНИЦА АДМИНИСТРАТОРОВ ----------- */
+/* ------------------------------------------------ */
+
+.admins_head,
+.admins_block_main,
+.admins_block_create {
+   border-bottom: 2px solid #5b7ead;
+}
+
+.admins_block_main td,
+.admins_block_create td,
+.admins_block td {
+   padding: 10px 5px;
+}
+
+.admins_head * {
+   padding-bottom: 5px;
+}
+
+.admins_block td {
+   padding-top: 10px;
+   /* Добавляет отступ сверху ячеек */
+}
+
+.central_admins * {
+   border-collapse: collapse;
+   /* Убирает двойные границы */
+   font-size: 14pt;
+}
+
+.central_admins table {
+   margin: 20px 0 0 20px;
+}
+
+.admins_head_th_0,
+.admins_block_td_0 input {
+   width: 180px;
+}
+
+.admins_block_td_0 {
+   padding: 0 5px;
+}
+
+.admins_head_th_1,
+.admins_block_td_1 input {
+   width: 180px;
+}
+
+.admins_block_td_1 {
+   padding: 0 5px;
+}
+
+.admins_head_th_2,
+.admins_block_td_2 input {
+   width: 180px;
+}
+
+.admins_block_th_2,
+.admins_block_td_2 {
+   padding: 0 5px;
+}
+
+.admins_head_th_3 {
+   width: 130px;
+}
+
+.admins_block_td_3 {
+   display: flex;
+   flex-direction: column;
+}
+
+.admins_access_check {
+   display: flex;
+   flex-direction: row;
+}
+
+.admins_access_check input {
+   margin: 0 5px 0 15px;
+}
+
+.admins_head_th_4,
+.admins_block_td_4 input {
+   width: 150px;
+}
+
+.admins_block_td_4 {
+   padding: 0 5px;
+}
+
+.admins_head_th_5,
+.admins_block_td_5 input {
+   width: 150px;
+}
+
+.admins_block_td_5 {
+   padding: 0 5px;
+}
+
+.admins_block_td_6 {
+   text-align: center;
+   padding: 0 5px;
+   width: 180px;
+}
+
+.admins_block_td_6 button {
+   width: 120px;
+}

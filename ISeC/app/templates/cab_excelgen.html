@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Администрация. ИКС-файл</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style_adminCab.css') }}">
+	<link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+</head>
+
+
+
+<body>
+
+	<header class="header">
+		<div class="header_ISeC">ИКС-файл. Администраторная</div>
+		<div class="header_admin">
+			<span>
+				Привет, <a href="{{ url_for('index') }}">{{ session['admin_data']['adminName'] }}</a> |
+				<a href="{{ url_for('index') }}">Тест</a> |
+				<a href="{{ url_for('cab_logout') }}">Выйти</a>
+			</span>
+		</div>
+	</header>
+
+	<main class="main">
+
+		<div class="side_menu">
+			<button class="btn_sidelink" id="btn_cab_archive">
+				Архив
+			</button>
+
+			<button class="btn_sidelink" id="btn_cab_codes">
+				Коды доступа
+			</button>
+
+			<button class="btn_sidelink" id="btn_cab_analysis">
+				Анализ по вопросам
+			</button>
+
+			<button class="btn_sidelink_actual" id="btn_cab_excelgen">
+				Выборки (excel)
+			</button>
+
+			<button class="btn_sidelink" id="btn_cab_admins">
+				Администраторы
+			</button>
+		</div>
+
+		{% if session.admin_data.excelgenAccess == 'true' %}
+		<div class="central_excelgen">
+
+			<table>
+				<thead>
+					<tr class="conditions_head">
+						<th class="conditions_head_th_0">
+							<p>Группа</p>
+						</th>
+						<th class="conditions_head_th_1">
+							<p>Категория</p>
+						</th>
+						<th class="conditions_head_th_2">
+							<p>Пол</p>
+						</th>
+						<th class="conditions_head_th_3">
+							<p>Г.р.</p>
+						</th>
+						<th class="conditions_head_th_4">
+						</th>
+					</tr>
+				</thead>
+
+				<tbody>
+
+					<tr class="conditions_block">
+
+						<td class="conditions_block_td_0">
+							<div name="group_fullname">
+								{% for group in groups %}
+								<div class="group-item {% if loop.index > 10 %}hidden_groups{% endif %}">
+									<input type="checkbox" id="group_{{ loop.index }}" name="group_checkbox"
+										value="{{ group }}">
+									<label for="group_{{ loop.index }}">{{ group }}</label>
+								</div>
+								{% endfor %}
+							</div>
+							<button id="show_all_groups"
+								class="{% if groups|length <= 10 %}hidden-button{% endif %}">Показать все
+								группы</button>
+
+						</td>
+
+						<td class="conditions_block_td_1">
+							<div name="category">
+								{% for category in categories %}
+								<div>
+									<input type="checkbox" id="category_{{ loop.index }}" name="category_checkbox"
+										value="{{ category }}">
+									<label for="category_{{ loop.index }}">{{ category }}</label>
+								</div>
+								{% endfor %}
+							</div>
+						</td>
+
+
+						<td class="conditions_block_td_2">
+							<div class="excelgen_inputs">
+								<div>
+									<input type="radio" name="sex" id="sex_both">
+									<label for="sex_both">Оба</label>
+								</div>
+								<div>
+									<input type="radio" name="sex" value="Мужской" id="sex_male">
+									<label for="sex_both">Муж</label>
+								</div>
+								<div>
+									<input type="radio" name="sex" value="Женский" id="sex_female">
+									<label for="sex_both">Жен</label>
+								</div>
+							</div>
+						</td>
+
+						<td class="conditions_block_td_3">
+							<div>
+								<input type="text" id="yearFrom" placeholder="от" autocomplete="off">
+							</div>
+							<div>
+								<input type="text" id="yearUntil" placeholder="до" autocomplete="off">
+							</div>
+						</td>
+
+						<td class="conditions_block_td_4">
+							<button id="start_excelgen" onclick="startExcelgen()">Создать</button>
+						</td>
+
+					</tr>
+
+				</tbody>
+
+			</table>
+
+		</div>
+		{% else %}
+		<span class="access_blocked">У Вас нет доступа к этой странице</span>
+		{% endif %}
+
+		<script src="{{ url_for('static', filename='js/functions_adminCab.js') }}"></script>
+		<script>
+
+			document.addEventListener('DOMContentLoaded', function () {
+
+				document.getElementById('show_all_groups').addEventListener('click', function () {
+					// Получаем все элементы с классом group-item
+					const groups = document.querySelectorAll('.group-item.hidden_groups');
+					// Показываем все скрытые элементы
+					groups.forEach(function (group) {
+						group.classList.remove('hidden_groups');
+					});
+					// Скрываем кнопку после нажатия
+					this.classList.add('hidden-button');
+				});
+
+				document.getElementById('btn_cab_archive').addEventListener('click', function () {
+					window.location.href = '/cab_archive';
+				});
+
+				document.getElementById('btn_cab_codes').addEventListener('click', function () {
+					window.location.href = '/cab_codes';
+				});
+
+				document.getElementById('btn_cab_analysis').addEventListener('click', function () {
+					window.location.href = '/cab_analysis';
+				});
+
+				document.getElementById('btn_cab_excelgen').addEventListener('click', function () {
+					window.location.href = '/cab_excelgen';
+				});
+
+				document.getElementById('btn_cab_admins').addEventListener('click', function () {
+					window.location.href = '/cab_admins';
+				});
+
+			});
+
+			function confirmExcelgen() {
+				return confirm("Скачать адресную базу?");
+			}
+
+		</script>
+
+	</main>
+
+</body>
+
+</html>

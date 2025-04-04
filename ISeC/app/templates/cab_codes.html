@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Администрация. ИКС-файл</title>
+	<script type="text/javascript"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style_adminCab.css') }}">
+	<link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+</head>
+
+<body>
+
+	<header class="header">
+		<div class="header_ISeC">ИКС-файл. Администраторная</div>
+		<div class="header_admin">
+			<span>
+				Привет, <a href="{{ url_for('index') }}">{{ session['admin_data']['adminName'] }}</a> |
+				<a href="{{ url_for('index') }}">Тест</a> |
+				<a href="{{ url_for('cab_logout') }}">Выйти</a>
+			</span>
+		</div>
+	</header>
+
+	<main class="main">
+
+		<div class="side_menu">
+			<button class="btn_sidelink" id="btn_cab_archive">
+				Архив
+			</button>
+
+			<button class="btn_sidelink_actual" id="btn_cab_codes">
+				Коды доступа
+			</button>
+
+			<button class="btn_sidelink" id="btn_cab_analysis">
+				Анализ по вопросам
+			</button>
+
+			<button class="btn_sidelink" id="btn_cab_excelgen">
+				Выборки (excel)
+			</button>
+
+			<button class="btn_sidelink" id="btn_cab_admins">
+				Администраторы
+			</button>
+		</div>
+
+		{% if session.admin_data.codesAccess == 'true' %}
+		<div class="central_codes">
+
+			<table>
+				<thead>
+					<tr class="entrycode_head">
+						<th class="entrycode_head_th_0">
+							<p>Дата</p>
+						</th>
+						<th class="entrycode_head_th_1">
+							<p>Название группы</p>
+						</th>
+						<th class="entrycode_head_th_2">
+							<p>Код доступа</p>
+						</th>
+						<th class="entrycode_head_th_3">
+							<p>Начало</p>
+						</th>
+						<th class="entrycode_head_th_4">
+							<p>Конец</p>
+						</th>
+						<th class="entrycode_head_th_5">
+							<p>Действия</p>
+						</th>
+					</tr>
+				</thead>
+
+				<tbody>
+
+					<tr class="entrycode_block_create">
+						<td class="entrycode_block_td_0" id="entrycode_block_td_0">
+						</td>
+						<td class="entrycode_block_td_1">
+							<input type="text" name="test_group" autocomplete="off" placeholder="Новое название">
+						</td>
+						<td class="entrycode_block_td_2">
+							<input type="text" name="code" autocomplete="off" placeholder="Новый код доступа">
+						</td>
+						<td class="entrycode_block_td_3">
+							<input type="date" name="start_date">
+						</td>
+						<td class="entrycode_block_td_4">
+							<input type="date" name="end_date">
+						</td>
+						<td class="entrycode_block_td_5">
+							<button onclick="createCode(this)">Создать</button>
+						</td>
+					</tr>
+
+					{% for codesRow in codesRows %}
+					<tr class="entrycode_block">
+						<td class="entrycode_block_td_0">
+							{{ codesRow.test_group[:10] }}
+						</td>
+						<td class="entrycode_block_td_1">
+							<input type="text" name="test_group" value="{{ codesRow.test_group[11:] }}"
+								autocomplete="off">
+						</td>
+						<td class="entrycode_block_td_2">
+							<input type="text" name="code" value="{{ codesRow.code }}" autocomplete="off">
+						</td>
+						<td class="entrycode_block_td_3">
+							<input type="date" name="start_date" value="{{ codesRow.start_date }}">
+						</td>
+						<td class="entrycode_block_td_4">
+							<input type="date" name="end_date" value="{{ codesRow.end_date }}">
+						</td>
+						<td class="entrycode_block_td_5">
+							<button code_id="{{ codesRow.code_id }}" onclick="updateCode(this)">Сохранить</button>
+							<button code_id="{{ codesRow.code_id }}" test_group="{{ codesRow.test_group }}"
+								onclick="deleteCode(this)">Удалить</button>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		</div>
+		{% else %}
+		<span class="access_blocked">У Вас нет доступа к этой странице</span>
+		{% endif %}
+
+		<script src="{{ url_for('static', filename='js/functions_adminCab.js') }}"></script>
+		<script>
+
+			document.addEventListener('DOMContentLoaded', function () {
+
+				// Для отображения сегодняшней даты
+				const today = new Date();
+				const day = String(today.getDate()).padStart(2, '0');
+				const month = String(today.getMonth() + 1).padStart(2, '0'); // Январь - 0
+				const year = today.getFullYear();
+				// Форматирование даты
+				const formattedDate = `${day}.${month}.${year}`;
+				// Заполнение ячейки датой
+				const dateCell = document.getElementById('entrycode_block_td_0');
+				dateCell.textContent = formattedDate;
+
+				document.getElementById('btn_cab_archive').addEventListener('click', function () {
+					window.location.href = '/cab_archive';
+				});
+
+				document.getElementById('btn_cab_codes').addEventListener('click', function () {
+					window.location.href = '/cab_codes';
+				});
+
+				document.getElementById('btn_cab_analysis').addEventListener('click', function () {
+					window.location.href = '/cab_analysis';
+				});
+
+				document.getElementById('btn_cab_excelgen').addEventListener('click', function () {
+					window.location.href = '/cab_excelgen';
+				});
+
+				document.getElementById('btn_cab_admins').addEventListener('click', function () {
+					window.location.href = '/cab_admins';
+				});
+
+			});
+
+			function confirmUpdateCode() {
+				return confirm(`Сохранить изменения?`);
+			}
+
+			function confirmDeleteCode(testGroup) {
+				return confirm(`Удалить группу ${testGroup}?`);
+			}
+
+		</script>
+
+	</main>
+
+</body>
+
+</html>
